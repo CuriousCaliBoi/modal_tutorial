@@ -1,0 +1,9 @@
+{
+  "setup_commands": [
+    "pip install -r requirements.txt",
+    "modal setup || true"
+  ],
+  "start_commands": [],
+  "environment_variables": {}
+}
+

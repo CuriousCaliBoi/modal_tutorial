@@ -36,3 +36,11 @@ This agent specializes in helping maintain, improve, and explain Modal tutorial 
 - Does not introduce unrelated dependencies or frameworks unless specifically requested
 - Prioritizes Modal-native solutions over workarounds
 
+## Background Agent Usage (Cursor IDE)
+
+This agent can run as a background agent in Cursor IDE:
+- Press `Ctrl+E` (or `Cmd+E` on Mac) to launch background agent mode
+- Submit Modal-related tasks and the agent will work on them
+- Monitor progress in the Background Agent Sidebar
+- All Modal setup commands are configured in `.cursor/environment.json`
+
