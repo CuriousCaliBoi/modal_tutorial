@@ -4,24 +4,33 @@ This directory contains comprehensive examples covering all major Modal features
 
 ## 📚 Table of Contents
 
-### Getting Started
+### Getting Started (`examples/getting_started/`)
 - **`get_started.py`** - Basic Modal function (from official tutorial Step 1)
 - **`hello_world.py`** - Local, remote, and parallel execution
 - **`custom_container.py`** - Custom container with dependencies (from official tutorial Step 2)
 
-### Core Features
+### Core Features (`examples/core/`)
 - **`parallel_map.py`** - Parallel processing with `.map()`
 - **`class_example.py`** - Class-based functions with persistent state
 - **`container_lifecycle.py`** - Understanding container lifecycle and optimization
-
-### Advanced Features
 - **`gpu_example.py`** - Using GPUs for computation
+
+### Advanced Features (`examples/advanced/`)
 - **`web_endpoint.py`** - Creating HTTP endpoints
 - **`fastapi_app.py`** - Full FastAPI application with ASGI
 - **`scheduled_function.py`** - Cron jobs and periodic tasks
 - **`volume_example.py`** - Persistent storage across runs
 - **`secrets_example.py`** - Managing API keys and secrets
 - **`mount_files.py`** - Mounting local files and directories
+
+### Machine Learning Examples (`examples/ml/`)
+- **`llama_cpp.py`** - Running LLMs with llama.cpp (DeepSeek-R1, Phi-4)
+- **`vllm_inference.py`** - High-performance LLM inference with vLLM
+- **`flux.py`** - Image generation with Flux models
+- **`amazon_embeddings.py`** - Text embeddings with Amazon models
+- **`batched_whisper.py`** - Batched audio transcription with Whisper
+- **`boltz_predict.py`** - Prediction examples with Boltz
+- **`webrtc_yolo.py`** - Real-time object detection with YOLO over WebRTC
 
 ## 🚀 Quick Start
 
@@ -35,20 +44,20 @@ modal setup
 
 **Run a script:**
 ```bash
-modal run get_started.py
-modal run hello_world.py
-modal run gpu_example.py
+modal run examples/getting_started/get_started.py
+modal run examples/getting_started/hello_world.py
+modal run examples/core/gpu_example.py
 ```
 
 **Deploy a web service:**
 ```bash
-modal deploy web_endpoint.py
-modal deploy fastapi_app.py
+modal deploy examples/advanced/web_endpoint.py
+modal deploy examples/advanced/fastapi_app.py
 ```
 
 **Deploy scheduled functions:**
 ```bash
-modal deploy scheduled_function.py
+modal deploy examples/advanced/scheduled_function.py
 ```
 
 ## 📖 Example Details
@@ -58,7 +67,7 @@ modal deploy scheduled_function.py
 #### get_started.py
 The simplest Modal function that squares a number.
 ```bash
-modal run get_started.py
+modal run examples/getting_started/get_started.py
 ```
 
 #### hello_world.py
@@ -99,7 +108,7 @@ Full-featured FastAPI application with:
 - Query parameters
 - Request body handling
 
-Deploy with: `modal deploy fastapi_app.py`
+Deploy with: `modal deploy examples/advanced/fastapi_app.py`
 
 ### Scheduled Jobs
 
@@ -198,24 +207,25 @@ def process_file():
 ## 🎯 Common Use Cases
 
 ### Machine Learning
-- Use `gpu_example.py` for GPU-accelerated training
-- Use `class_example.py` for model inference with warm loading
-- Use `volume_example.py` to store model checkpoints
+- Use `examples/core/gpu_example.py` for GPU-accelerated training
+- Use `examples/core/class_example.py` for model inference with warm loading
+- Use `examples/advanced/volume_example.py` to store model checkpoints
+- Check `examples/ml/` for ML-specific examples (LLMs, embeddings, vision models)
 
 ### Web Applications
-- Use `fastapi_app.py` for REST APIs
-- Use `web_endpoint.py` for simple webhooks
-- Use `secrets_example.py` for API keys
+- Use `examples/advanced/fastapi_app.py` for REST APIs
+- Use `examples/advanced/web_endpoint.py` for simple webhooks
+- Use `examples/advanced/secrets_example.py` for API keys
 
 ### Data Processing
-- Use `parallel_map.py` for ETL pipelines
-- Use `volume_example.py` for data persistence
-- Use `scheduled_function.py` for periodic data updates
+- Use `examples/core/parallel_map.py` for ETL pipelines
+- Use `examples/advanced/volume_example.py` for data persistence
+- Use `examples/advanced/scheduled_function.py` for periodic data updates
 
 ### Background Jobs
-- Use `scheduled_function.py` for cron jobs
-- Use `container_lifecycle.py` for optimized job execution
-- Use `volume_example.py` for job state management
+- Use `examples/advanced/scheduled_function.py` for cron jobs
+- Use `examples/core/container_lifecycle.py` for optimized job execution
+- Use `examples/advanced/volume_example.py` for job state management
 
 ## 🔧 Tips & Best Practices
 
@@ -229,10 +239,11 @@ def process_file():
 
 ## 📝 Next Steps
 
-1. Start with `get_started.py` to understand basics
-2. Progress through `hello_world.py` and `custom_container.py`
+1. Start with `examples/getting_started/get_started.py` to understand basics
+2. Progress through `examples/getting_started/hello_world.py` and `examples/getting_started/custom_container.py`
 3. Explore feature-specific examples based on your use case
-4. Check [Modal documentation](https://modal.com/docs) for more details
+4. Check `docs/MODAL_NOTES.md` for detailed concept explanations
+5. Check [Modal documentation](https://modal.com/docs) for more details
 
 ## 🆘 Troubleshooting
 
