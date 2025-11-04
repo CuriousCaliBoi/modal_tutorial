@@ -9,6 +9,7 @@ This guide provides a comprehensive map of all Python examples in this repositor
 3. [Web Services](#web-services)
 4. [GPU & ML Examples](#gpu--ml-examples)
 5. [Advanced Features](#advanced-features)
+6. [Agent Integration Examples](#agent-integration-examples)
 
 ---
 
@@ -431,6 +432,240 @@ This guide provides a comprehensive map of all Python examples in this repositor
 
 ---
 
+### `cursor_modal_bridge.py`
+**Purpose:** Bridge between Cursor IDE and Modal for asynchronous task execution with status tracking.
+
+**What it does:**
+- Creates a FastAPI service that accepts tasks from Cursor
+- Runs tasks asynchronously in Modal containers
+- Provides status tracking via Modal Dict for task state
+- Supports webhook callbacks for task completion
+- Tracks progress, logs, and results in real-time
+
+**When to use:**
+- Integrating Cursor IDE with Modal compute
+- Building async task execution systems
+- Creating webhook-based task handlers
+- Needing status tracking for long-running operations
+
+**Key features:**
+- Uses Modal Dict for persistent task state
+- Fire-and-forget task spawning with `.spawn()`
+- Optional callback URLs for task completion
+- Real-time progress tracking and logging
+
+**Deploy with:** `modal deploy examples/advanced/cursor_modal_bridge.py`
+
+**Usage:**
+- POST to `/cursor/tasks` with `{operation, params, callback_url?}`
+- GET `/cursor/tasks/{run_id}` to check status
+- Supports operations: `echo`, `sleep`, `square` (extendable)
+
+---
+
+## Agent Integration Examples
+
+This section covers examples for integrating Cursor cloud agents and other AI agents with Modal's compute platform. These examples enable agents to dynamically deploy functions, spawn parallel tasks, manage resources, and coordinate multi-agent workflows.
+
+**See also:** Detailed documentation in [`docs/AGENT_INTEGRATION.md`](docs/AGENT_INTEGRATION.md) and [`examples/agent_integration/README.md`](examples/agent_integration/README.md).
+
+### `modal_agent_api.py`
+**Purpose:** FastAPI service deployed on Modal that provides HTTP endpoints for agents to interact with Modal.
+
+**What it does:**
+- Exposes REST API endpoints for agent operations
+- Handles dynamic function deployment from code strings
+- Manages parallel task execution
+- Provides task status tracking and webhook support
+- Lists registered functions and tasks
+
+**When to use:**
+- Building agent-to-Modal integration systems
+- Creating HTTP APIs for AI agents to use Modal
+- Enabling agents to deploy and run functions dynamically
+- Managing task queues and status tracking
+
+**Key features:**
+- `POST /deploy-function` - Deploy Modal functions dynamically
+- `POST /run-parallel` - Execute functions in parallel
+- `POST /spawn-task` - Spawn single tasks
+- `GET /status/{task_id}` - Query task status
+- `POST /webhook` - Register webhooks for async tasks
+
+**Deploy with:** `modal deploy examples/agent_integration/modal_agent_api.py`
+
+---
+
+### `agent_tools.py`
+**Purpose:** Core Modal functions that agents can call as tools for deploying and executing functions.
+
+**What it does:**
+- `deploy_modal_function()` - Deploys functions from code strings
+- `spawn_parallel_tasks()` - Executes tasks in parallel using `.map()`
+- `request_gpu_task()` - Executes tasks with GPU resources
+- `get_task_result()` - Retrieves task results
+- `coordinate_state()` - Shares state across agents via Modal Volumes
+
+**When to use:**
+- Agents need to deploy functions on-the-fly
+- Parallel execution of agent tasks
+- GPU-accelerated agent computations
+- Multi-agent state coordination
+
+**Key features:**
+- Dynamic function compilation and registration
+- Support for custom images, GPUs, secrets, and volumes
+- Parallel task execution with `.map()`
+- Volume-based state sharing
+
+**Import and use:** Functions are Modal functions that can be called remotely
+
+---
+
+### `agent_modal_client.py`
+**Purpose:** Python client library for agents to easily interact with Modal Agent API.
+
+**What it does:**
+- Provides `ModalAgentClient` class for async API interactions
+- Handles HTTP requests with retries and error handling
+- Includes `StatusMonitor` for tracking multiple tasks
+- Simplifies common agent operations (deploy, run, query)
+
+**When to use:**
+- Building Python-based agent integrations
+- Need async/await patterns for Modal operations
+- Monitoring multiple concurrent tasks
+- Implementing agent workflows with Modal
+
+**Key features:**
+- Async/await support
+- Automatic retries with exponential backoff
+- Task status monitoring utilities
+- Webhook registration support
+
+**Usage:**
+```python
+from agent_modal_client import ModalAgentClient
+async with ModalAgentClient(api_url="...") as client:
+    result = await client.deploy_function(...)
+```
+
+---
+
+### `parallel_executor.py`
+**Purpose:** Utilities for parallel execution patterns that agents commonly need.
+
+**What it does:**
+- `process_item()` - Generic item processor
+- `batch_processor()` - Process items in batches
+- `parallel_map_executor()` - Execute function in parallel using `.map()`
+- `parallel_starmap_executor()` - Execute with multiple arguments using `.starmap()`
+- `parallel_filter_executor()` - Filter items in parallel
+- `parallel_reduce_executor()` - Perform parallel reduce operations
+
+**When to use:**
+- Agents need to process large datasets in parallel
+- Implementing batch processing workflows
+- Filtering or reducing data across containers
+- Understanding parallel execution patterns
+
+**Key features:**
+- Multiple parallel execution patterns
+- Batch processing utilities
+- Generic, reusable components
+
+---
+
+### `resource_manager.py`
+**Purpose:** Utilities for managing compute resources that agents can request.
+
+**What it does:**
+- `request_gpu_resources()` - Request GPU allocation (T4, A10G, A100, H100)
+- `create_volume()` - Create or get Modal Volumes
+- `mount_secrets()` - Mount Modal Secrets
+- `request_compute_resources()` - Request CPU/memory resources
+- `get_resource_status()` - Get current resource availability
+
+**When to use:**
+- Agents need to request specific compute resources
+- Managing GPU allocations for ML tasks
+- Creating persistent storage for agent workflows
+- Mounting secrets for API access
+
+**Key features:**
+- GPU type selection and allocation
+- Volume creation and management
+- Secret mounting utilities
+- Resource status monitoring
+
+---
+
+### `multi_agent_repo_creation.py`
+**Purpose:** Example showing multiple agents creating repositories in parallel, coordinating via shared volume.
+
+**What it does:**
+- Coordinates multiple agents to create repositories simultaneously
+- Uses Modal Volumes for shared state and coordination
+- Demonstrates parallel repository creation patterns
+- Aggregates results from multiple agents
+
+**When to use:**
+- Multiple agents need to create repositories in parallel
+- Understanding multi-agent coordination patterns
+- Building systems where agents work on separate tasks simultaneously
+- Learning volume-based state sharing
+
+**Key features:**
+- Parallel agent execution
+- Volume-based coordination
+- Result aggregation
+
+---
+
+### `multi_agent_codegen.py`
+**Purpose:** Example showing agents generating code components in parallel, then aggregating results.
+
+**What it does:**
+- Coordinates multiple agents to generate code in parallel
+- Each agent generates different components (classes, functions, etc.)
+- Aggregates generated code into a complete solution
+- Uses Modal for parallel execution and coordination
+
+**When to use:**
+- Agents need to generate code in parallel
+- Building multi-component systems where agents specialize
+- Understanding code generation workflows
+- Learning result aggregation patterns
+
+**Key features:**
+- Parallel code generation
+- Component specialization per agent
+- Result aggregation and integration
+
+---
+
+### `multi_agent_coordinator.py`
+**Purpose:** Example showing master agent distributing work to worker agents via Modal.
+
+**What it does:**
+- Implements master-worker coordination pattern
+- Master agent distributes tasks to worker agents
+- Workers execute tasks in parallel on Modal
+- Results are collected and aggregated by master
+
+**When to use:**
+- Building hierarchical agent systems
+- Implementing task distribution patterns
+- Coordinating multiple specialized agents
+- Understanding master-worker architectures
+
+**Key features:**
+- Master-worker pattern
+- Task distribution
+- Result collection and aggregation
+
+---
+
 ## Quick Reference by Use Case
 
 ### Machine Learning & AI
@@ -455,6 +690,14 @@ This guide provides a comprehensive map of all Python examples in this repositor
 - **First Steps:** `get_started.py`, `hello_world.py`
 - **Container Setup:** `custom_container.py`, `container_lifecycle.py`
 - **State Management:** `class_example.py`
+
+### Agent Integration
+- **API Service:** `modal_agent_api.py`
+- **Agent Tools:** `agent_tools.py`, `agent_modal_client.py`
+- **Parallel Execution:** `parallel_executor.py`
+- **Resource Management:** `resource_manager.py`
+- **Multi-Agent Patterns:** `multi_agent_coordinator.py`, `multi_agent_codegen.py`, `multi_agent_repo_creation.py`
+- **IDE Integration:** `cursor_modal_bridge.py`
 
 ---
 
@@ -485,4 +728,6 @@ This guide provides a comprehensive map of all Python examples in this repositor
 - [Modal Examples Repository](https://github.com/modal-labs/modal-examples)
 - [Modal Blog](https://modal.com/blog)
 - [Modal Discord](https://discord.gg/modal)
+- [Agent Integration Documentation](docs/AGENT_INTEGRATION.md)
+- [Agent Integration Examples README](examples/agent_integration/README.md)
 

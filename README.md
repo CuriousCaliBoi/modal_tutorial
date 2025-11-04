@@ -32,6 +32,16 @@ This directory contains comprehensive examples covering all major Modal features
 - **`boltz_predict.py`** - Prediction examples with Boltz
 - **`webrtc_yolo.py`** - Real-time object detection with YOLO over WebRTC
 
+### Agent Integration (`examples/agent_integration/`)
+- **`modal_agent_api.py`** - FastAPI service for Cursor cloud agents to interact with Modal
+- **`agent_tools.py`** - Core tool functions for agent operations
+- **`parallel_executor.py`** - Utilities for parallel task execution
+- **`resource_manager.py`** - GPU, volume, and secret management for agents
+- **`agent_modal_client.py`** - Helper library with retry logic and error handling
+- **`multi_agent_repo_creation.py`** - Multiple agents creating repositories in parallel
+- **`multi_agent_codegen.py`** - Parallel code generation with result aggregation
+- **`multi_agent_coordinator.py`** - Task distribution and coordination patterns
+
 ## 🚀 Quick Start
 
 ### Installation
@@ -227,6 +237,12 @@ def process_file():
 - Use `examples/core/container_lifecycle.py` for optimized job execution
 - Use `examples/advanced/volume_example.py` for job state management
 
+### Multi-Agent Systems
+- Use `examples/agent_integration/modal_agent_api.py` for HTTP-based agent interactions
+- Use `examples/agent_integration/multi_agent_coordinator.py` for agent coordination
+- Use `examples/agent_integration/parallel_executor.py` for parallel agent workflows
+- Check `docs/AGENT_INTEGRATION.md` for detailed integration guide
+
 ## 🔧 Tips & Best Practices
 
 1. **Container Images**: Define dependencies once with `modal.Image`
@@ -243,7 +259,8 @@ def process_file():
 2. Progress through `examples/getting_started/hello_world.py` and `examples/getting_started/custom_container.py`
 3. Explore feature-specific examples based on your use case
 4. Check `docs/MODAL_NOTES.md` for detailed concept explanations
-5. Check [Modal documentation](https://modal.com/docs) for more details
+5. For agent integration, see `examples/agent_integration/README.md` and `docs/AGENT_INTEGRATION.md`
+6. Check [Modal documentation](https://modal.com/docs) for more details
 
 ## 🆘 Troubleshooting
 
